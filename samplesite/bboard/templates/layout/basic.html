@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} Главаная {% endblock %} :: Доска объявлений</title>
+    <link rel="stylesheet" href="{% static 'bboard/style.css' %}" type="text/css">
 </head>
 <body>
     <header>
@@ -11,6 +13,7 @@
     <nav>
         <a href="{% url 'index' %}">Главная</a>
         <a href="{% url 'add' %}">Добавить</a>
+        {% for rubric in rubrics %}
         <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
         {% endfor %}
     </nav>
