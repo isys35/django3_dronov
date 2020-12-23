@@ -16,9 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
 urlpatterns = [
     path('', include('bboard.urls')),
     path('bboard/', include('bboard.urls')),
     path('admin/', admin.site.urls),
 ]
+
+"""
+    Список маршрктов уровня проекто, включающий список маршрутов уровня приложения
+    Листинг 8.3
+"""
+# from samplesite.bboard.views import index,by_rubric, BbCreateView
+# urlpatterns = [
+#     path('bboard/', include([
+#         path('add/', BbCreateView.as_view(), name='add'),
+#         path('<int:rubric_id>/', by_rubric, name='by_rubric'),
+#         path('', index, name='index')
+#     ])),
+#     path('admin/', admin.site.urls),
+# ]

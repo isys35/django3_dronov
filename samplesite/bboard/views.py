@@ -47,3 +47,97 @@ class BbCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
         return context
+
+
+"""
+    Контроллер-функция add()
+    Листинг 9.1
+"""
+
+# def add(request):
+#     bbf = BbForm()
+#     context = {'form': bbf}
+#     return render(request, 'bboard/create.html', context)
+
+
+"""
+    Контроллер-функции add_save()
+    Листинг 9.2
+"""
+
+# from django.http import HttpResponseRedirect
+# from django.urls import reverse
+#
+#
+# def add_save(request):
+#     bbf = BbForm(request.POST)
+#     if bbf.is_valid():
+#         bbf.save()
+#         return HttpResponseRedirect(reverse('by_rubric',
+#                                             kwargs={'rubric_id': bbf.cleaned_data['rubric'].pk}))
+#     else:
+#         context = {'form': bbf}
+#         return render(request, 'bboard/create.html', context)
+
+"""
+    Контроллер-функции add_and_save()
+    Листинг 9.3
+"""
+# from django.http import HttpResponseRedirect
+# from django.urls import reverse
+#
+#
+# def add_and_save(request):
+#     if request.method == 'POST':
+#         bbf = BbForm(request.POST)
+#         if bbf.is_valid():
+#             bbf.save()
+#             return HttpResponseRedirect(reverse('by_rubric',
+#                                                 kwargs={'rubric_id': bbf.cleaned_data['rubric'].pk}))
+#     else:
+#         bbf = BbForm()
+#         context = {'form': bbf}
+#         return render(request, 'bboard/create.html', context)
+
+
+"""
+    Использование низкоуровневых средств формирования ответа
+    Листинг 9.4
+"""
+
+# def index(request):
+#     resp = HttpResponse("Здесь будет",
+#                         content_type='text/plain; charset=utf-8')
+#     resp.write(' главная')
+#     resp.writelines((' страница', ' сайта'))
+#     resp['keywords'] = 'Python, Django'
+#     return resp
+
+"""
+    Применение метода render() для рендеринга шаблона
+    Листинг 9.5
+"""
+
+# def index(request):
+#     bbs = Bb.objects.all()
+#     rubrics = Rubric.objects.all()
+#     context = {'bbs': bbs, 'rubrics': rubrics}
+#     template = loader.get_template('bboard/index.html')
+#     return HttpResponse(template.render(context=context, request=request))
+
+
+"""
+    Применение функции render_to_string() для рендеринга шаблона
+    Листинг 9.6
+"""
+
+# def index(request):
+#     bbs = Bb.objects.all()
+#     rubrics = Rubric.objects.all()
+#     context = {'bbs': bbs, 'rubrics': rubrics}
+#     return HttpResponse(loader.render_to_string('bboard/index.html',
+#                                                 context,
+#                                                 request))
+
+
+
