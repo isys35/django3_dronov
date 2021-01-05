@@ -277,4 +277,98 @@ class BbEditView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('detail',
-                       kwargs={'pk': self.object.pk})
+                            kwargs={'pk': self.object.pk})
+
+
+"""
+    Использование котнтроллера класса DeleteView
+    Листинг 10.7
+"""
+
+from django.views.generic.edit import DeleteView
+
+
+class BbDeleteView(DeleteView):
+    model = Bb
+    success_url = '/'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
+
+
+"""
+    Применение котнтроллера класса ArchiveIndexView
+    Листинг 10.9
+"""
+from django.views.generic.dates import ArchiveIndexView
+
+
+class BbIndexView(ArchiveIndexView):
+    model = Bb
+    date_field = 'published'
+    date_list_period = 'year'
+    template_name = 'bboard/index.html'
+    context_object_name = 'bbs'
+    allow_empty = True
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
+
+
+"""
+    Использование контроллера класса DateDetailView
+    Листинг 10.10
+"""
+# from django.views.generic.dates import DateDetailView
+#
+#
+# class BbDetailView(DateDetailView):
+#     model = Bb
+#     date_field = 'published'
+#     montf_format = '%m'
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super().get_context_data(*args, **kwargs)
+#         context['rubrics'] = Rubric.objects.all()
+#         return context
+
+"""
+    Использование контроллера класса RedirectView
+    Листинг 10.11
+"""
+from django.views.generic.base import RedirectView
+
+
+class BbRedirectView(RedirectView):
+    url = '/detail/%(pk)d/'
+
+
+"""
+    Использование контроллера-класса смешанной функциональности
+    Листинг 10.12
+"""
+
+# from django.views.generic.detail import SingleObjectMixin
+#
+#
+# class BbByRubricView(SingleObjectMixin, ListView):
+#     template_name = 'bboard/by_rubric.html'
+#     pk_url_kwarg = 'rubric_id'
+#
+#     def get(self, request, *args, **kwargs):
+#         self.object = self.get_object(queryset=Rubric.objects.all())
+#         return super().get(request, *args, **kwargs)
+#
+#     def get_queryset(self):
+#         return self.object.bb_set.all()
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['rubrics'] = Rubric.objects.all()
+#         context['current_rubric'] = self.object
+#         context['bbs'] = context['object_list']
+#         return context

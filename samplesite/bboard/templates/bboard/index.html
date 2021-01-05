@@ -1,4 +1,4 @@
-{% extends "layout/basic.html" %}
+<link rel="stylesheet" href="../../static/bboard/style.css">{% extends "layout/basic.html" %}
 {% block content %}
 {% for bb in bbs %}
 <div>
@@ -7,4 +7,9 @@
     <p>{{ bb.published|date:"d.m.Y H:i:s" }}</p>
 </div>
 {% endfor %}
+<p>
+    {% for d in date_list %}
+    {{ d.year }}
+    {% endfor %}
+</p>
 {% endblock %}
