@@ -1,13 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Bb, Rubric
-from django.template import loader
-from django.shortcuts import render
-from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy, reverse
+from django.views.generic.edit import CreateView
 
 from .forms import BbForm
-
+from .models import Bb, Rubric
 
 # def index(request):
 #     s = "Список объявлений\r\n\r\n\r\n"
@@ -22,11 +18,23 @@ from .forms import BbForm
 #     context = {'bbs': bbs}
 #     return HttpResponse(template.render(context, request))
 
+"""
+    Пример использования пагинатора
+    Листинг 12.1
+"""
+from django.core.paginator import Paginator
+
 
 def index(request):
     bbs = Bb.objects.all()
     rubrics = Rubric.objects.all()
-    context = {'bbs': bbs, 'rubrics': rubrics}
+    paginator = Paginator(bbs, 2)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = paginator.get_page(page_num)
+    context = {'bbs': page.object_list, 'page': page, 'rubrics': rubrics}
     return render(request, 'bboard/index.html', context)
 
 
@@ -302,21 +310,21 @@ class BbDeleteView(DeleteView):
     Применение котнтроллера класса ArchiveIndexView
     Листинг 10.9
 """
-from django.views.generic.dates import ArchiveIndexView
-
-
-class BbIndexView(ArchiveIndexView):
-    model = Bb
-    date_field = 'published'
-    date_list_period = 'year'
-    template_name = 'bboard/index.html'
-    context_object_name = 'bbs'
-    allow_empty = True
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['rubrics'] = Rubric.objects.all()
-        return context
+# from django.views.generic.dates import ArchiveIndexView
+#
+#
+# class BbIndexView(ArchiveIndexView):
+#     model = Bb
+#     date_field = 'published'
+#     date_list_period = 'year'
+#     template_name = 'bboard/index.html'
+#     context_object_name = 'bbs'
+#     allow_empty = True
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super().get_context_data(*args, **kwargs)
+#         context['rubrics'] = Rubric.objects.all()
+#         return context
 
 
 """
