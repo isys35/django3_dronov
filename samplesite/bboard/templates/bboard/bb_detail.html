@@ -7,6 +7,6 @@
 <p>{{ bb.content }}</p>
 <p>Цена: {{ bb.price }}</p>
 <p>{{ bb.published|date:"d.m.Y H:i:s" }}</p>
-<p><a href="{% url 'edit' pk=bb.pk %}">Изменить</a> <a href="{% url 'delete' pk=bb.pk %}">Удалить</a></p>
+<p><a href="{% url 'bboard:edit' pk=bb.pk %}">Изменить</a> <a href="{% url 'bboard:delete' pk=bb.pk %}">Удалить</a></p>
 
 {% endblock %}

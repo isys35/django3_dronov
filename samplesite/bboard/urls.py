@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import *
 
-# app_name = 'bboard'
+app_name = 'bboard'
 urlpatterns = [
     path('delete/<int:pk>/', BbDeleteView.as_view(), name='delete'),
     path('detail/<int:pk>/', BbDetailView.as_view(), name='detail'),
@@ -10,7 +10,8 @@ urlpatterns = [
     path('edit/<int:pk>/', BbEditView.as_view(), name='edit'),
     path('<int:rubric_id>/', by_rubric, name='by_rubric'),
     #path('', BbIndexView.as_view(), name='index')
-    path('', index, name='index')
+    path('', index, name='index'),
+    path('rubrics', rubrics, name='rubrics')
     # path('detail/<int:year>/<int:month>/<int:day>/<int:pk>/', BbDetailView.as_view(), name='delete'),
 ]
 

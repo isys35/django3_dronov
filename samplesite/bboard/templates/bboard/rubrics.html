@@ -1,0 +1,44 @@
+
+
+{% extends "layout/basic.html" %}
+{% block title %} Рубрики {% endblock %}
+{% block content %}
+<!--
+    Вывод набора форм в шаблоне расширенными средствами
+    Листинг 14.3
+ -->
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% if formset.non_form_errors %}
+    <ul>
+        {% for error in formset.non_form_errors %}
+        <li><em>{{ error|escape }}</em></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% for form in formset %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <ul>
+            {% for error in form.non_field_errors %}
+            <li><em>{{ error|escape }}</em></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% for field in form.visible_fields %}
+            {% if fields.errors %}
+            <ul>
+                {% for error in field.errors %}
+                <li><em>{{ error|escape }}</em></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <p>{{ field.label_tag }}<br>{{ field }}<br>{{ field.help_text }}</p>
+        {% endfor %}
+    {% endfor %}
+    <input type="submit" value="Сохранить">
+</form>
+{% endblock %}
