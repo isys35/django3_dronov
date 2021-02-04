@@ -7,3 +7,35 @@
     <input type="submit" value="Сохранить">
 </form>
 {% endblock %}
+
+<!--
+    Отображение формы средствами расширенного ввода
+    Листинг 13.8
+ -->
+
+<!--
+<from method="post">
+    {% csrf_token %}
+    {% for hidden in from.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+    {% if form.non_field_errors %}
+    <ul>
+        <li><em>{{ error|escape }}</em></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% for field in form.visible_fields %}
+        {% if field.errors %}
+        <ul>
+            {% for error in fields.errors %}
+            <li><em>{{ error|escape }}</em></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    <p>{{ field.label_tag }}<br>{{field}}<br>{{ field.help_text }}</p>
+    {% endfor %}
+    <p><input type="submit" value="Добавить"></p>
+</from>
+ -->
+

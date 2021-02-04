@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView
+from django.http.response import HttpResponseRedirect
 
 from .forms import BbForm
 from .models import Bb, Rubric
@@ -380,3 +381,26 @@ class BbRedirectView(RedirectView):
 #         context['current_rubric'] = self.object
 #         context['bbs'] = context['object_list']
 #         return context
+
+
+"""
+    Контроллер-функция, исправляющий запись
+    Листинг 13.6
+"""
+
+# def edit(request, pk):
+#     bb = Bb.objects.get(pk=pk)
+#     if request.method == 'POST':
+#         bbf = BbForm(request.POST, instance=bb)
+#         if bbf.is_valid():
+#             bbf.save()
+#             return HttpResponseRedirect(reverse('bboard:by_rubric'),
+#                                         kwargs={'rubric_id':bbf.cleaned_data['rubric'].pk})
+#         else:
+#             context = {'form': bbf}
+#             return render(request, 'bboard/bb_form.html', context)
+#     else:
+#         bbf = BbForm(instance=bb)
+#         context = {'form': bbf}
+#         return render(request, 'bboard/bb_form.html', context)
+
