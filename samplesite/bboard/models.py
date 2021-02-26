@@ -56,3 +56,14 @@ class Rubric(models.Model):
         verbose_name_plural = 'Рубрики'
         verbose_name = 'Рубрика'
         ordering = ['order', 'name']
+
+
+"""
+Листинг 16.5. Пример прокси-модели
+"""
+
+
+class RevRubric(Rubric):
+    class Meta:
+        proxy = True
+        ordering = ['-name']
