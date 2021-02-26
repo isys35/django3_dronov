@@ -1,3 +1,7 @@
+<!--
+Листинг 15.1
+Код шаблона стрнаницы входа
+**-->
 {% extends "layout/basic.html" %}
 {% block title %} Вход {% endblock %}
 {% block content %}
@@ -11,4 +15,5 @@
     <input type="hidden" name="next" value="{{ next }}">
     <input type="submit" value="Войти">
 </form>
+{% endif %}
 {% endblock %}
