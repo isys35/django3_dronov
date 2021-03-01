@@ -67,3 +67,50 @@ class RevRubric(Rubric):
     class Meta:
         proxy = True
         ordering = ['-name']
+
+
+"""
+Листинг 16.6. Пример объявления собственного диспетчера записей
+"""
+
+
+class RubricManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by('order', 'name')
+
+    def order_by_bb_count(self):
+        return super().get_queryset().annotate(cnt=models.Count('bb')).order_by('-cnt')
+
+
+"""
+Листинг 16.7. Пример диспетчера обратной связи
+"""
+
+
+class BbManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by('price')
+
+
+"""
+Листинг 16.7. Пример собственного набора записей
+"""
+
+
+class RubricQuerySet(models.QuerySet):
+    def order_by_bb_count(self):
+        return self.annotate(cnt=models.Count('bb')).order_by('-cnt')
+
+
+"""
+Листинг 16.9. Пример диспетчера записей, обслуживающего набор записей из листинга 16.8 
+"""
+
+
+# class RubricManager(models.Manager):
+#     def get_queryset(self):
+#         return RubricQuerySet(self.model, using=self._db)
+#
+#     def order_by_bb_count(self):
+#         return self.get_queryset().order_by_bb_count()
+
