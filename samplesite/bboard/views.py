@@ -503,3 +503,30 @@ def search(request: HttpRequest):
         sf = SearchForm()
     context = {'form': sf}
     return render(request, 'bboard/search.html', context)
+
+
+"""
+    Контроллер, который обрабатывает набор форм, не связанный с моделью
+    Листинг 17.3
+"""
+from django.forms import formset_factory
+
+
+def formset_processing(request: HttpRequest):
+    FS = formset_factory(SearchForm, extra=3, can_order=True, can_delete=True)
+    if request.method == 'POST':
+        formset = FS(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                if form.changed_data and not form.changed_data['DELETE']:
+                    keyword = form.cleaned_data['keyword']
+                    rubric_id = form.cleaned_data['rubric'].pk
+                    order = form.cleaned_data['ORDER']
+                    # Выполняем какие-либо действия над полученными
+                    # данными
+            return render(request, 'bboard/process_result.html')
+
+    else:
+        formset = FS()
+    context = {'formset': formset}
+    return render(request, 'bboard/formset.html', context)
