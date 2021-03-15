@@ -479,3 +479,27 @@ def bbs(request, rubric_id):
         formset = BbsFormSet(instance=rubric)
     context = {'formset': formset, 'current_rubric': rubric}
     return render(request, 'bboard/bbs.html', context)
+
+
+"""
+    Контроллер, который использует форму, не связанную  с моделью
+    Листинг 17.2
+"""
+
+from .forms import SearchForm
+from django.http import HttpRequest
+
+
+def search(request: HttpRequest):
+    if request.method == 'POST':
+        sf = SearchForm(request.POST)
+        if sf.is_valid():
+            keyword = sf.cleaned_data['keyword']
+            rubric_id = sf.cleaned_data['rubric'].pk
+            bbs = Bb.objects.filter(title__icontains=keyword, rubric=rubric_id)
+            context = {'bbs': bbs}
+            return render(request, 'bboard/search_results.html', context)
+    else:
+        sf = SearchForm()
+    context = {'form': sf}
+    return render(request, 'bboard/search.html', context)

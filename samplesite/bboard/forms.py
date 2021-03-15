@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.forms.widgets import Select
 from django.forms import modelform_factory, DecimalField
 
-from .models import Bb
+from .models import Bb, Rubric
 
 """
     Быстрое объявление формы, связанной с моделью
@@ -93,5 +93,12 @@ class RegisterUserForm(forms.ModelForm):
         fields = ('username', 'email', 'first_name', 'last_name')
 
 
+"""
+    Форма, не связанная с моделью
+    Листинг 17.1
+"""
 
 
+class SearchForm(forms.Form):
+    keyword = forms.CharField(max_length=20, label='Искомое слово')
+    rubric = forms.ModelChoiceField(queryset=Rubric.objects.all(), label='Рубрика')
