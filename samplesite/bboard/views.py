@@ -50,7 +50,7 @@ def by_rubric(request, rubric_id):
 class BbCreateView(CreateView):
     template_name = 'bboard/create.html'
     form_class = BbForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('bboard:index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -263,7 +263,7 @@ class BbAddView(FormView):
         return self.object
 
     def get_success_url(self):
-        return reverse('bboard: by_rubric',
+        return reverse('bboard:by_rubric',
                        kwargs={'rubric_id': self.object.cleaned_data['rubric'].pk})
 
 
@@ -285,7 +285,7 @@ class BbEditView(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('detail',
+        return reverse_lazy('bboard:detail',
                             kwargs={'pk': self.object.pk})
 
 

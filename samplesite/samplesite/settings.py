@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bboard.apps.BboardConfig',
-    'testapp.apps.TestappConfig'
+    'testapp.apps.TestappConfig',
+    'captcha'
 
 ]
 

@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django.forms.widgets import Select
 from django.forms import modelform_factory, DecimalField
+from captcha.fields import CaptchaField
 
 from .models import Bb, Rubric
 
@@ -11,6 +12,8 @@ from .models import Bb, Rubric
 
 
 class BbForm(ModelForm):
+    captcha = CaptchaField()
+
     class Meta:
         model = Bb
         fields = ('title', 'content', 'price', 'rubric')
