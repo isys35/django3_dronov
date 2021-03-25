@@ -30,11 +30,11 @@
     Листинг 19.3 Пример шаблонного тега
 """
 
-from django import template
-
-register = template.Library()
-
-
-@register.inclusion_tag('tags/ulist.html')
-def ulist(*args):
-    return {'items': args}
+# from django import template
+#
+# register = template.Library()
+#
+#
+# @register.inclusion_tag('tags/ulist.html')
+# def ulist(*args):
+#     return {'items': args}

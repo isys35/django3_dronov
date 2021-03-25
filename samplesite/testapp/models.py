@@ -78,3 +78,27 @@ class PrivateMessage(Message):
     name = models.CharField(max_length=40)
     # Удаляем поле email
     email = None
+
+""""
+Листинг 20.1. Модель с полем для хранения выгруженного файла
+"""
+
+from datetime import datetime
+from os.path import splitext
+
+
+def get_timestamp_path(instance, filename):
+    return "%s%s" % (datetime.now().timestamp(), splitext(filename)[1])
+
+
+class Img(models.Model):
+    img = models.ImageField(verbose_name='Изображения', upload_to=get_timestamp_path)
+    desc = models.TextField(verbose_name='Описание')
+
+    # def delete(self, *args, **kwargs):
+    #     self.img.delete(save=False)
+    #     super().delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'

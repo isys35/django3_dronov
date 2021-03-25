@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for img in imgs %}
+    <div class="image">
+        <p><img src="{% url 'testapp:get' filename=img %}" alt=""></p>
+    </div>
+    {% endfor %}
+</body>
+</html>
+</html>
