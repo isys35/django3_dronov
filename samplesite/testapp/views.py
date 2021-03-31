@@ -1,5 +1,13 @@
 from django.shortcuts import render, redirect
 
+def index(request):
+    imgs = Img.objects.all()
+    context = {'imgs': imgs}
+    return render(request, 'testapp/index.html', context)
+
+
+
+
 """
 Листинг 20.3 Контроллер, сохраняющий выгруженный файл
 """
@@ -70,18 +78,18 @@ def delete(request, pk):
 Листинг 20.6 Контроллер,выводящий список выгруженных файлов
 """
 
-from samplesite.settings import BASE_DIR, MEDIA_ROOT
-import os
-
-FILES_ROOT = os.path.join(BASE_DIR, MEDIA_ROOT)
-
-
-def index(request):
-    imgs = []
-    for entry in os.scandir(FILES_ROOT):
-        imgs.append(os.path.basename(entry))
-    context = {'imgs': imgs}
-    return render(request, 'testapp/index.html', context)
+# from samplesite.settings import BASE_DIR, MEDIA_ROOT
+# import os
+#
+# FILES_ROOT = os.path.join(BASE_DIR, MEDIA_ROOT)
+#
+#
+# def index(request):
+#     imgs = []
+#     for entry in os.scandir(FILES_ROOT):
+#         imgs.append(os.path.basename(entry))
+#     context = {'imgs': imgs}
+#     return render(request, 'testapp/index.html', context)
 
 
 """
