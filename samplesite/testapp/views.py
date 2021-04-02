@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 
+
 def index(request):
     imgs = Img.objects.all()
     context = {'imgs': imgs}
     return render(request, 'testapp/index.html', context)
-
-
 
 
 """
@@ -96,8 +95,33 @@ def delete(request, pk):
 Листинг 20.7 Контроллер, отправляющий выгруженный файл клиенту
 """
 from django.http import FileResponse
+import os
+
+FILES_ROOT = os.path.join(BASE_DIR, MEDIA_ROOT)
 
 
 def get(request, filename):
     fn = os.path.join(FILES_ROOT, filename)
     return FileResponse(open(fn, 'rb'), content_type='application/octet-stream')
+
+
+"""
+Листинг 21.1 Пример валидатора паролей
+"""
+
+from django.core.exceptions import ValidationError
+
+
+class NoForbiddenCharsValidator:
+    def __init__(self, forbidden_chars=(' ',)):
+        self.forbidden_chars = forbidden_chars
+
+    def validate(self, password, user=None):
+        for fc in self.forbidden_chars:
+            if fc in password:
+                raise ValidationError(
+                    'Пароль не должен содержать недопустимые символы %s' % ', '.join(self.forbidden_chars),
+                    code='forbidden_chars_present')
+
+    def get_help_text(self):
+        return 'Пароль не должен содержать недопустимые символы %s' % ', '.join(self.forbidden_chars)
