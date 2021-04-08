@@ -91,19 +91,19 @@ def delete(request, pk):
 #     return render(request, 'testapp/index.html', context)
 
 
-"""
-Листинг 20.7 Контроллер, отправляющий выгруженный файл клиенту
-"""
-from django.http import FileResponse
-import os
-
-FILES_ROOT = os.path.join(BASE_DIR, MEDIA_ROOT)
-
-
-def get(request, filename):
-    fn = os.path.join(FILES_ROOT, filename)
-    return FileResponse(open(fn, 'rb'), content_type='application/octet-stream')
-
+# """
+# Листинг 20.7 Контроллер, отправляющий выгруженный файл клиенту
+# """
+# from django.http import FileResponse
+# import os
+#
+# FILES_ROOT = os.path.join(BASE_DIR, MEDIA_ROOT)
+#
+#
+# def get(request, filename):
+#     fn = os.path.join(FILES_ROOT, filename)
+#     return FileResponse(open(fn, 'rb'), content_type='application/octet-stream')
+#
 
 """
 Листинг 21.1 Пример валидатора паролей

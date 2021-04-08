@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'bboard.middlewares.RubricsMiddleware',
+    # 'bboard.middleware.RubricsMiddleware',
     # 'bboard.middleware.my_middleware'
 ]
 

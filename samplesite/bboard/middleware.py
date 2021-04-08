@@ -1,13 +1,13 @@
-def my_middleware(next):
-    # Здесь можно выполнить какую-либо инициализацию
-
-    def core_middleware(request):
-        # Здесь выпоняется обработка клиентского  запроса
-        response = next(request)
-        # Здесь выполняется обработка ответа
-        return response
-
-    return core_middleware
+# def my_middleware(next):
+#     # Здесь можно выполнить какую-либо инициализацию
+#
+#     def core_middleware(request):
+#         # Здесь выпоняется обработка клиентского  запроса
+#         response = next(request)
+#         # Здесь выполняется обработка ответа
+#         return response
+#
+#     return core_middleware
 
 
 """

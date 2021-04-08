@@ -47,15 +47,15 @@ def by_rubric(request, rubric_id):
     return render(request, 'bboard/by_rubric.html', context)
 
 
-class BbCreateView(CreateView):
-    template_name = 'bboard/create.html'
-    form_class = BbForm
-    success_url = reverse_lazy('bboard:index')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['rubrics'] = Rubric.objects.all()
-        return context
+# class BbCreateView(CreateView):
+#     template_name = 'bboard/create.html'
+#     form_class = BbForm
+#     success_url = reverse_lazy('bboard:index')
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['rubrics'] = Rubric.objects.all()
+#         return context
 
 
 """
@@ -388,21 +388,25 @@ class BbRedirectView(RedirectView):
     Листинг 13.6
 """
 
-# def edit(request, pk):
-#     bb = Bb.objects.get(pk=pk)
-#     if request.method == 'POST':
-#         bbf = BbForm(request.POST, instance=bb)
-#         if bbf.is_valid():
-#             bbf.save()
-#             return HttpResponseRedirect(reverse('bboard:by_rubric'),
-#                                         kwargs={'rubric_id':bbf.cleaned_data['rubric'].pk})
-#         else:
-#             context = {'form': bbf}
-#             return render(request, 'bboard/bb_form.html', context)
-#     else:
-#         bbf = BbForm(instance=bb)
-#         context = {'form': bbf}
-#         return render(request, 'bboard/bb_form.html', context)
+from django.contrib import messages
+
+
+def edit(request, pk):
+    bb = Bb.objects.get(pk=pk)
+    if request.method == 'POST':
+        bbf = BbForm(request.POST, instance=bb)
+        if bbf.is_valid():
+            bbf.save()
+            messages.add_message(request, messages.SUCCESS, 'Объявление исправлено')
+            return HttpResponseRedirect(reverse('bboard:index'))
+        else:
+            context = {'form': bbf}
+            return render(request, 'bboard/bb_form.html', context)
+    else:
+        bbf = BbForm(instance=bb)
+        context = {'form': bbf}
+        return render(request, 'bboard/bb_form.html', context)
+
 
 """
     Обработка набора форм, связанного с моделью
@@ -530,3 +534,19 @@ def formset_processing(request: HttpRequest):
         formset = FS()
     context = {'formset': formset}
     return render(request, 'bboard/formset.html', context)
+
+
+"""
+    Листинг 23.1. Использование примеси SuccessMessageMixin
+"""
+
+from django.views.generic.edit import CreateView
+from django.contrib.messages.views import SuccessMessageMixin
+from .models import Bb
+from .forms import BbForm
+
+class BbCreateView(SuccessMessageMixin, CreateView):
+    template_name = 'bboard/create.html'
+    form_class = BbForm
+    success_url = '/{rubric_id}'
+    success_message = 'Объявление о продаже товара создано'
