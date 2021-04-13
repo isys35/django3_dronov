@@ -106,7 +106,6 @@ class RubricQuerySet(models.QuerySet):
 Листинг 16.9. Пример диспетчера записей, обслуживающего набор записей из листинга 16.8 
 """
 
-
 # class RubricManager(models.Manager):
 #     def get_queryset(self):
 #         return RubricQuerySet(self.model, using=self._db)
@@ -114,3 +113,23 @@ class RubricQuerySet(models.QuerySet):
 #     def order_by_bb_count(self):
 #         return self.get_queryset().order_by_bb_count()
 
+from django.db.models.signals import post_save
+
+
+def post_save_dispatcher(sender, **kwargs):
+    if kwargs['created']:
+        print('Объявление в рубрике "%s" создано' % kwargs['instance'].rubric.name)
+
+
+post_save.connect(post_save_dispatcher, sender=Bb)
+
+from django.dispatch import Signal
+
+add_bb = Signal(providing_args=['instance', 'rubric'])
+
+
+def add_bb_dispatcher(sender, **kwargs):
+    print('Объявление в рубрике "%s" с ценой %.2f создано' % (kwargs['rubric'].name, kwargs['instance'].price))
+
+
+add_bb.connect(add_bb_dispatcher)

@@ -550,3 +550,31 @@ class BbCreateView(SuccessMessageMixin, CreateView):
     form_class = BbForm
     success_url = '/{rubric_id}'
     success_message = 'Объявление о продаже товара создано'
+
+
+"""
+    Отправка электронных писем
+"""
+
+# from django.core.mail import EmailMessage
+#
+# em = EmailMessage(subject='Test', body='Test', to=['isysbas@gmail.com'])
+# em = EmailMessage(subject='Ваш новый пароль', body='Ваш новый пароль во вложении',
+#                   attachments=[('password.txt', '123456789', 'text/plain')],
+#                   to=['isysbas@gmail.com'])
+# em = EmailMessage(subject='Запрошенный вами файл', body='Получите запрошенный вами файл',
+# # #                   to=['isysbas@gmail.com'])
+# # # em.attach_file(r'C:\work\file.txt')
+# # # em.send()s
+
+
+""" 
+    Формирование писем на основе шаблонов
+"""
+
+# from django.core.mail import EmailMessage
+# from django.template.loader import render_to_string
+# context = {'user': 'Вася Пупкин'}
+# s = render_to_string('email/letter.txt', context)
+# em = EmailMessage(subject='Оповещение', body=s, to=['isysbas@gamil.com'])
+# em.send()
