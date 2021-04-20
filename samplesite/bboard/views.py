@@ -578,3 +578,22 @@ class BbCreateView(SuccessMessageMixin, CreateView):
 # s = render_to_string('email/letter.txt', context)
 # em = EmailMessage(subject='Оповещение', body=s, to=['isysbas@gamil.com'])
 # em.send()
+
+""" 
+    Пример отправки письма, которое помимо текстовой части, содержит и фрагмент
+    написанный на HTML
+"""
+
+# from django.core.mail import EmailMultiAlternatives
+# em = EmailMultiAlternatives(subject='Test', body='Test', to=['isysbas@gamil.com'])
+# em.attach_alternative('<h1>Test</h1>', 'text/html')
+# em.send()
+
+"""
+    Массовая отправка писем
+"""
+
+# from django.core.mail import send_mass_mail
+# msg1 = ('Подписка', 'Подтвердите, пожалуйста, подписку', 'subscribe@supersite.ru', ['user@othersite.ru', 'user2@thirdsite.ru'])
+# msg2 = ('Подписка', 'Ваша подписка подтвержена', 'subscribe@supersite.ru', ['megauser@megasite.ru'])
+# send_mass_mail((msg1, msg2))
