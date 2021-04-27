@@ -38,7 +38,8 @@ urlpatterns = [
          PasswordResetCompleteView.as_view(template_name='registration/password_confirmed.html'),
          name='password_reset_complete'),
     # path('detail/<int:year>/<int:month>/<int:day>/<int:pk>/', BbDetailView.as_view(), name='delete'),
-    path('search', search, name='search')
+    path('search', search, name='search'),
+    path('api/rubrics/', api_rubrics)
 ]
 
 """

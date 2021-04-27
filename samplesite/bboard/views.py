@@ -545,6 +545,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import Bb
 from .forms import BbForm
 
+
 class BbCreateView(SuccessMessageMixin, CreateView):
     template_name = 'bboard/create.html'
     form_class = BbForm
@@ -597,3 +598,33 @@ class BbCreateView(SuccessMessageMixin, CreateView):
 # msg1 = ('Подписка', 'Подтвердите, пожалуйста, подписку', 'subscribe@supersite.ru', ['user@othersite.ru', 'user2@thirdsite.ru'])
 # msg2 = ('Подписка', 'Ваша подписка подтвержена', 'subscribe@supersite.ru', ['megauser@megasite.ru'])
 # send_mass_mail((msg1, msg2))
+
+"""
+    Листинг 28.2. Контроллер, использующий сериализатор для вывода рубрик
+"""
+
+from django.http import JsonResponse
+from .models import Rubric
+from .serializers import RubricSerializer
+
+# def api_rubrics(request):
+#     if request.method == 'GET':
+#         rubrics = Rubric.objects.all()
+#         serializer = RubricSerializer(rubrics, many=True)
+#         return JsonResponse(serializer.data, safe=False)
+
+
+"""
+    Листинг 28.3. Пример контроллера, реализующего веб-представление
+"""
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+
+@api_view(['GET'])
+def api_rubrics(requst):
+    if requst.method == 'GET':
+        rubrics = Rubric.objects.all()
+        serializer = RubricSerializer(rubrics, many=True)
+        return Response(serializer.data)
