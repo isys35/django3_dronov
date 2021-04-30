@@ -10,7 +10,7 @@ listLoader.addEventListener('readystatechange', () => {
             let s = '<ul>', d;
             for (let  i=0; i<data.length; i++){
                 d = data[i];
-                s += '<li>' + d.name + '</li>>';
+                s += '<li>' + d.name + '</li>';
             }
             s += '</ul>';
             list.innerHTML = s;

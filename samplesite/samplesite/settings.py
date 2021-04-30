@@ -157,3 +157,6 @@ THUMBNAIL_ALIASES = {
         }
     }
 }
+
+
+CORS_ORIGIN_ALLOW_ALL = True
