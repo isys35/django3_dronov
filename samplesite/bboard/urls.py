@@ -39,7 +39,9 @@ urlpatterns = [
          name='password_reset_complete'),
     # path('detail/<int:year>/<int:month>/<int:day>/<int:pk>/', BbDetailView.as_view(), name='delete'),
     path('search', search, name='search'),
-    path('api/rubrics/', api_rubrics)
+    #path('api/rubrics/', api_rubrics),
+    path('api/rubrics/', APIRubrics.as_view()),
+    path('api/rubrics/<int:pk>/', APIRubricsDetail.as_view()),
 ]
 
 """
