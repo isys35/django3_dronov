@@ -1,0 +1,61 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=l, shrink-to-fit=no">
+        <title>{% block title %}Главная{% endblock %} - Доска объявлений</title>
+        {% bootstrap_css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+        {% bootstrap_javascript jquery='slim' %}
+    </head>
+    <body class="container-fluid">
+        <header class="mb-4">
+            <h1 class="display-l 1ех1-сеп1ег">Объявления</h1>
+        </header>
+        <div class="row">
+            <ul class="col nav justify-content-end border">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Регистрация</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Профиль</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Мои объявления</a>
+                        <a class="dropdown-item" href="#">Изменить личные данные</a>
+                        <a class="dropdown-item" href="#">Изменить пароль</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Выйти</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">Удалить</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Вход</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <nav class="col-md-auto nav flex-column border">
+                <a href="{% url 'main:index' %}" class="nav-link root">Главная</a>
+                <a href="{% url 'main:other' page='about' %}" class="nav-link root">О сайте</a>
+                <span class="nav-link root font-weight-bold">Недвижимость</span>
+                <a href="#" class="nav-link">Жильё</a>
+                <a href="#" class="nav-link">Склады</a>
+                <a href="#" class="nav-link">Гаражи</a>
+                <span class="nav-link root font-weight-bold">Транспорт</span>
+                <a href="#" class="nav-link">Легковой</a>
+                <a href="#" class="nav-link">Грузовой</a>
+            </nav>
+            <section class="col border py-2">
+                {% bootstrap_messages %}
+                {% block content %}
+                {% endblock %}
+            </section>
+        </div>
+        <footer class="mt-3">
+            <p class="text-right font-italic">&copy; читатели.</p>
+        </footer>
+    </body>
+</html>
